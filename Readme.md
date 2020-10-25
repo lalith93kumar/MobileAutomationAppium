@@ -43,3 +43,8 @@ ParallelExecution is groovy task create to run the cucumber feature file based o
 VM Option: -DproxySeverCertifiedPath:/Users/x.y/MockserverCert/
 ```
 
+Command Line:
+```
+./gradlew parallelExecution -DproxySeverCertifiedPath:/Users/x.y/MockserverCert/
+```
+
