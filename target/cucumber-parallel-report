@@ -1,0 +1,98 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2020-12-12T10:37:21.148Z",
+        "before": [
+          {
+            "result": {
+              "duration": 18222000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Hooks.startServer(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 11,
+        "name": "validate search results",
+        "description": "",
+        "id": "search-in-flickr;validate-search-results;;2",
+        "after": [
+          {
+            "result": {
+              "duration": 403000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Hooks.stopServer()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 12798000000,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Login with Username: lalithmax20 and Password: abcd.1234",
+            "match": {
+              "arguments": [
+                {
+                  "val": "lalithmax20",
+                  "offset": 21
+                },
+                {
+                  "val": "abcd.1234",
+                  "offset": 47
+                }
+              ],
+              "location": "stepDefinitions.LoginStep.userIsOnSearchScreen(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 12002000000,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "Wait until check credentials page disappear",
+            "match": {
+              "location": "stepDefinitions.LoginStep.userSearchForATextInSearchScreen()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 3058000000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Validate the user: lalithmax20 login into the app",
+            "match": {
+              "arguments": [
+                {
+                  "val": "lalithmax20",
+                  "offset": 19
+                }
+              ],
+              "location": "stepDefinitions.LoginStep.searchResultsShouldDisplayForSearchCriteria(java.lang.String)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Search in Flickr",
+    "description": "",
+    "id": "search-in-flickr",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/features/Login.feature",
+    "tags": []
+  }
+]

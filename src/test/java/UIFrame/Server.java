@@ -2,15 +2,15 @@ package UIFrame;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
+
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
-import io.appium.java_client.remote.IOSMobileCapabilityType;
+import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServerHasNotBeenStartedLocallyException;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.AndroidServerFlag;
+import org.mockserver.socket.PortFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import utility.AdbCommand;
 
@@ -41,14 +41,19 @@ public class Server {
         File app = new File("app/app-debug.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, getDevice().);
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, getDevice());
-        capabilities.setCapability(MobileCapabilityType.FULL_RESET, true);
-        capabilities.setCapability("appWaitDuration", 30);
+        capabilities.setCapability(MobileCapabilityType.UDID, getDevice());
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
+        capabilities.setCapability("appWaitDuration", 500000);
+        capabilities.setCapability("noReset", true);
+        int port = PortFactory.findFreePort();
+        capabilities.setCapability(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER.getArgument(),port);
         capabilities.setCapability(AndroidMobileCapabilityType.AVD_LAUNCH_TIMEOUT, 500000);
         capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+        capabilities.setCapability("appPackage", "com.malmstein.yahnac");
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT,500000);
-        driver.set(new IOSDriver(service.get().getUrl(), capabilities));
+        capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS,true);
+        capabilities.setCapability(AndroidMobileCapabilityType.DEVICE_READY_TIMEOUT,500000);
+        driver.set(new AndroidDriver<>(service.get().getUrl(), capabilities));
     }
 
     public String getDevice() {

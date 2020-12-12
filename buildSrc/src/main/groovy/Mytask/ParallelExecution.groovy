@@ -12,7 +12,8 @@ class ParallelExecution extends DefaultTask {
     def run() {
        def var = new AdbCommand().getAllDevices().size()
         println "pool size -- " + var
-        def cucumberArgs;
+        println "Classpath -- " + classpathFolder
+        def cucumberArgs = getArgs(var)
         project.javaexec {
             main = "io.cucumber.core.cli.Main"
             classpath = classpathFolder
@@ -26,8 +27,6 @@ class ParallelExecution extends DefaultTask {
         List<String> args = []
         args.add("-p")
         args.add("json:target/cucumber-parallel-report")
-        args.add("-p")
-        args.add("proxyserver.utility.CucumberListener:"+proxySeverCertifiedPath)
         args.add("--threads")
         args.add(size)
         args.add("-p")
