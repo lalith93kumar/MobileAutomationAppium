@@ -28,7 +28,7 @@ public class Server {
     public void startServer() {
         AppiumServiceBuilder appiumServiceBuilder = new AppiumServiceBuilder()
                 .usingDriverExecutable(new File("/usr/bin/node"))
-                .withAppiumJS(new File("/usr/bin/appium"))
+                .withAppiumJS(new File("/usr/local/bin/appium"))
                 .withIPAddress("127.0.0.1")
                 .usingAnyFreePort();
         service.set(appiumServiceBuilder.build());
