@@ -1,8 +1,5 @@
 package proxyserver.conversationModifiers;
 
-import com.google.gson.JsonObject;
-import groovy.json.JsonParser;
-import netscape.javascript.JSObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.mockserver.model.HttpResponse;
