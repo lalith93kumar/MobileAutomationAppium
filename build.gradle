@@ -31,7 +31,7 @@ dependencies {
     compile(localGroovy())
 }
 
-import Mytask.ParallelExecution;
+import Mytask.*;
 
 task parallelExecution(type : ParallelExecution) {
     classpathFolder = sourceSets.test.runtimeClasspath
