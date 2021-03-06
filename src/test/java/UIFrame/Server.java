@@ -28,7 +28,7 @@ public class Server {
 
     public void startServer() throws IOException, InterruptedException {
         AppiumServiceBuilder appiumServiceBuilder = new AppiumServiceBuilder()
-                .usingDriverExecutable(new File("/usr/local/bin/node"))
+                .usingDriverExecutable(new File("/usr/bin/node"))
                 .withAppiumJS(new File("/usr/local/bin/appium"))
                 .withIPAddress("127.0.0.1")
                 .usingAnyFreePort();
