@@ -16,7 +16,6 @@ RUN wget 'https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip' 
 RUN unzip -d /opt/android /tmp/sdk-tools-linux-4333796.zip
 RUN yes Y | /opt/android/tools/bin/sdkmanager --install "platform-tools" "system-images;android-${ANDROID_API_LEVEL};google_apis;x86" "platforms;android-${ANDROID_API_LEVEL}" "build-tools;${ANDROID_BUILD_TOOLS_LEVEL}" "emulator"
 RUN yes Y | /opt/android/tools/bin/sdkmanager --licenses
-Run echo "lalith"
 RUN echo "no" | /opt/android/tools/bin/avdmanager --verbose create avd --force --name "test" --device "pixel" --package "system-images;android-${ANDROID_API_LEVEL};google_apis;x86" --tag "google_apis" --abi "x86"
 ENV GRADLE_HOME=/opt/gradle/gradle-$GRADLE_VERSION \
 ANDROID_HOME=/opt/android
@@ -35,13 +34,21 @@ RUN apt-get -qqy update && \
     xvfb \
     gnupg \
   && rm -rf /var/lib/apt/lists/*
-ARG APPIUM_VERSION=1.19.1
+ARG APPIUM_VERSION=1.17.0
 ENV APPIUM_VERSION=$APPIUM_VERSION
 RUN apt update
 RUN yes Y | apt install nodejs
 RUN yes Y | apt install npm
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
-RUN npm install -g appium@1.17.0 --unsafe-perm=true --allow-root && \
+RUN npm install -g mockserver
+RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
 ENV JAVA_HOME "/usr/lib/jvm/java-1.8.0-openjdk-amd64"
+RUN git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew \
+&& mkdir ~/.linuxbrew/bin \
+&& ln -s ../Homebrew/bin/brew ~/.linuxbrew/bin \
+&& eval $(~/.linuxbrew/bin/brew shellenv) \
+&& brew --version
+ENV PATH=~/.linuxbrew/bin:~/.linuxbrew/sbin:$PATH
+RUN brew install mockserver
 CMD /usr/bin/appium
