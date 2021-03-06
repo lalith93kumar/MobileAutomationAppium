@@ -15,6 +15,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import utility.AdbCommand;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +26,9 @@ public class Server {
     static Map<Long,String> threadToDeviceMapping =  new HashMap();
     static Map<String,Long> deviceToThreadMapping = new HashMap();
 
-    public void startServer() {
+    public void startServer() throws IOException, InterruptedException {
         AppiumServiceBuilder appiumServiceBuilder = new AppiumServiceBuilder()
-                .usingDriverExecutable(new File("/usr/bin/node"))
+                .usingDriverExecutable(new File("/usr/local/bin/node"))
                 .withAppiumJS(new File("/usr/local/bin/appium"))
                 .withIPAddress("127.0.0.1")
                 .usingAnyFreePort();
@@ -37,7 +38,7 @@ public class Server {
         if (service == null || !service.get().isRunning()) {
             throw new AppiumServerHasNotBeenStartedLocallyException("An appium server node is not started!");
         }
-
+        new AdbCommand().uninstallApp(getDevice(),"com.malmstein.yahnac");
         File app = new File("app/app-debug.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");

@@ -12,6 +12,9 @@ repositories {
     mavenCentral()
 }
 
+test{
+    exclude '**/*'
+}
 
 ext.cukesVersion = '6.8.1'
 dependencies {
@@ -35,5 +38,5 @@ import Mytask.*;
 
 task parallelExecution(type : ParallelExecution) {
     classpathFolder = sourceSets.test.runtimeClasspath
-    proxySeverCertifiedPath = System.getProperty("proxySeverCertifiedPath")
+    proxySeverCertifiedPath = System.getProperty("cert")
 }

@@ -6,6 +6,7 @@ import org.mockserver.model.HttpResponse;
 import proxyserver.utility.Common;
 import proxyserver.utility.ResponseProxyTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LoginAPIModifier extends Common implements ResponseProxyTemplate {
@@ -21,8 +22,10 @@ public class LoginAPIModifier extends Common implements ResponseProxyTemplate {
         return response;
     }
 
-    public void setErrorStatusCode(Map<String,String> value) throws ParseException {
+    public void setErrorStatusCode(HashMap<String,String> value) throws ParseException {
         response.withStatusCode(Integer.valueOf(value.get("StatusCode")));
-        responseBody = new JSONParser().parse("{'error':'"+value.get("Message")+"'}");
+        String s = "{\"error\":\""+value.get("Message")+"\"}";
+        Object responseBody1 = new JSONParser().parse(s);
+        responseBody = new JSONParser().parse(s);
     }
 }

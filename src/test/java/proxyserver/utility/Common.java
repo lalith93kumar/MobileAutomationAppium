@@ -21,10 +21,11 @@ public class Common {
     public void setAttributes()
     {
         String val = this.response.getBodyAsString();
+
         try {
-            responseBody = new JSONParser().parse(val);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            this.responseBody = new JSONParser().parse(val);
+        } catch (Exception e) {
+            String s =  e.getMessage();
         }
     }
 
@@ -33,6 +34,10 @@ public class Common {
         functionCall.put(methodName,args);
     }
 
+    public void setStatusCode(Integer statusCode)
+    {
+        response.withStatusCode(statusCode);
+    }
 
     public void invokers()
     {

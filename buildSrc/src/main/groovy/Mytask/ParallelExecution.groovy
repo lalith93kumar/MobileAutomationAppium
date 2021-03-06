@@ -26,7 +26,9 @@ class ParallelExecution extends DefaultTask {
     def getArgs(int size) {
         List<String> args = []
         args.add("-p")
-        args.add("json:target/cucumber-parallel-report")
+        args.add("proxyserver.utility.CucumberListener:"+proxySeverCertifiedPath)
+        args.add("-p")
+        args.add("html:target/cucumber-parallel-report.html")
         args.add("--threads")
         args.add(size)
         args.add("-p")

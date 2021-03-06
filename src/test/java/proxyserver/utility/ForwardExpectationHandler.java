@@ -49,7 +49,10 @@ public class ForwardExpectationHandler {
                 new ExpectationForwardAndResponseCallback() {
                     @Override
                     public HttpResponse handle(HttpRequest httpRequest, HttpResponse httpResponse) throws Exception {
-                        return expectationClassProperty.modify(httpResponse);
+                        HttpResponse response = expectationClassProperty.modify(httpResponse);
+                        System.out.println("Modified Response");
+                        System.out.println(response.getBodyAsString());
+                        return response;
                     }
                 }
         );
