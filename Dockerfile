@@ -2,7 +2,7 @@ FROM ubuntu
 LABEL maintainer "codecaigicungduoc@gmail"
 WORKDIR /
 SHELL ["/bin/bash", "-c"]
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-9-jdk vim curl git unzip libglu1 libpulse-dev libasound2 libc6  libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxi6  libxtst6 libnss3 wget
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jdk vim curl git unzip libglu1 libpulse-dev libasound2 libc6  libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxi6  libxtst6 libnss3 wget
 ARG GRADLE_VERSION=5.4.1
 ARG ANDROID_API_LEVEL=30
 ARG ANDROID_BUILD_TOOLS_LEVEL=30.0.0
