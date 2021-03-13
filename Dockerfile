@@ -43,8 +43,6 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
 ENV JAVA_HOME "/usr/lib/jvm/java-1.8.0-openjdk-amd64"
-RUN localedef -i en_US -f UTF-8 en_US.UTF-8
-
 RUN useradd -m -s /bin/bash linuxbrew && \
     echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
 
