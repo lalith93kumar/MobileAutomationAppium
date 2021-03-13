@@ -44,7 +44,8 @@ RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
 ENV JAVA_HOME "/usr/lib/jvm/java-1.8.0-openjdk-amd64"
 RUN wget 'http://search.maven.org/remotecontent?filepath=org/mock-server/mockserver-netty/5.11.2/mockserver-netty-5.11.2-jar-with-dependencies.jar' -O mockserver-netty-jar-with-dependencies.jar
-RUN java -Dmockserver.dynamicallyCreateCertificateAuthorityCertificate=true -Dmockserver.directoryToSaveDynamicSSLCertificate=. -Dfile.encoding=UTF-8 -jar mockserver-netty-jar-with-dependencies.jar -serverPort 1080 -logLevel INFO && \
-    sleep 1m && \
-    curl -k --proxy http://127.0.0.1:1080 https://www.youtube.com
+RUN wget 'http://search.maven.org/remotecontent?filepath=org/mock-server/mockserver-netty/5.11.2/mockserver-netty-5.11.2-jar-with-dependencies.jar' -O mockserver-netty-jar-with-dependencies.jar
+RUN nohup bash -c "java -Dmockserver.dynamicallyCreateCertificateAuthorityCertificate=true -Dmockserver.directoryToSaveDynamicSSLCertificate=. -Dfile.encoding=UTF-8 -jar mockserver-netty-jar-with-dependencies.jar -serverPort 1080 -logLevel INFO &" && \
+sleep 10s && \
+curl -k --proxy http://127.0.0.1:1080 https://www.youtube.com
 CMD /usr/bin/appium
