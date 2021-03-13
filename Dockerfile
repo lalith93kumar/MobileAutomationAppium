@@ -44,11 +44,4 @@ RUN npm install -g mockserver
 RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
 ENV JAVA_HOME "/usr/lib/jvm/java-1.8.0-openjdk-amd64"
-RUN git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew \
-&& mkdir ~/.linuxbrew/bin \
-&& ln -s ../Homebrew/bin/brew ~/.linuxbrew/bin \
-&& eval $(~/.linuxbrew/bin/brew shellenv) \
-&& brew --version
-ENV PATH=~/.linuxbrew/bin:~/.linuxbrew/sbin:$PATH
-RUN brew install mockserver
 CMD /usr/bin/appium
