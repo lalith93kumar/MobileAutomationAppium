@@ -1,8 +1,8 @@
 FROM ubuntu
 LABEL maintainer "codecaigicungduoc@gmail"
-WORKDIR /
+WORKDIR /app
 SHELL ["/bin/bash", "-c"]
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jdk vim curl git ruby-full unzip libglu1 libpulse-dev libasound2 libc6  libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxi6  libxtst6 libnss3 wget
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jdk vim curl git unzip libglu1 libpulse-dev libasound2 libc6  libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxi6  libxtst6 libnss3 wget
 ARG GRADLE_VERSION=5.4.1
 ARG ANDROID_API_LEVEL=30
 ARG ANDROID_BUILD_TOOLS_LEVEL=30.0.0
@@ -43,13 +43,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
 ENV JAVA_HOME "/usr/lib/jvm/java-1.8.0-openjdk-amd64"
-RUN useradd -m -s /bin/bash linuxbrew && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
-
-USER linuxbrew
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-
-USER root
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
-RUN brew install mockserver
+RUN wget 'http://search.maven.org/remotecontent?filepath=org/mock-server/mockserver-netty/5.11.2/mockserver-netty-5.11.2-jar-with-dependencies.jar' -O mockserver-netty-jar-with-dependencies.jar
+RUN java -Dmockserver.dynamicallyCreateCertificateAuthorityCertificate=true -Dmockserver.directoryToSaveDynamicSSLCertificate=. -Dfile.encoding=UTF-8 -jar mockserver-netty-jar-with-dependencies.jar -serverPort 1080 -logLevel INFO && \
+    sleep 1m && \
+    curl -k --proxy http://127.0.0.1:1080 https://www.youtube.com
 CMD /usr/bin/appium
