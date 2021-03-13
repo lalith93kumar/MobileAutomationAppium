@@ -40,7 +40,6 @@ RUN apt update
 RUN yes Y | apt install nodejs
 RUN yes Y | apt install npm
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
-RUN npm install -g mockserver
 RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
 ENV JAVA_HOME "/usr/lib/jvm/java-1.8.0-openjdk-amd64"
@@ -54,4 +53,5 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/mast
 
 USER root
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+RUN brew install mockserver
 CMD /usr/bin/appium
