@@ -4,7 +4,7 @@ WORKDIR /app
 SHELL ["/bin/bash", "-c"]
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jdk vim curl git unzip libglu1 libpulse-dev libasound2 libc6 \
 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxi6  libxtst6 libnss3 wget ca-certificates zip \
-libqt5webkit5 libgconf-2-4 xvfb gnupg nodejs npm&& rm -rf /var/lib/apt/lists/*
+libqt5webkit5 libgconf-2-4 xvfb gnupg nodejs npm && rm -rf /var/lib/apt/lists/*
 ARG GRADLE_VERSION=5.4.1
 ARG ANDROID_API_LEVEL=30
 ARG ANDROID_BUILD_TOOLS_LEVEL=30.0.0
@@ -25,9 +25,6 @@ ENV PATH "$PATH:$GRADLE_HOME/bin:/opt/gradlew:$ANDROID_HOME/emulator:$ANDROID_HO
 ENV LD_LIBRARY_PATH "$ANDROID_HOME/emulator/lib64:$ANDROID_HOME/emulator/lib64/qt/lib"
 ARG APPIUM_VERSION=1.17.0
 ENV APPIUM_VERSION=$APPIUM_VERSION
-RUN apt update
-RUN yes Y | apt install nodejs
-RUN yes Y | apt install npm
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root && \
     exit 0
