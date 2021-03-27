@@ -34,5 +34,5 @@ RUN wget 'http://search.maven.org/remotecontent?filepath=org/mock-server/mockser
 RUN nohup bash -c "java -Dmockserver.dynamicallyCreateCertificateAuthorityCertificate=true -Dmockserver.directoryToSaveDynamicSSLCertificate=. -Dfile.encoding=UTF-8 -jar mockserver-netty-jar-with-dependencies.jar -serverPort 1080 -logLevel INFO &" && \
 sleep 10s && \
 curl -k --proxy http://127.0.0.1:1080 https://www.youtube.com
-ADD startEml.sh /
+COPY startEml.sh /app/startEml.sh
 CMD /usr/bin/appium
