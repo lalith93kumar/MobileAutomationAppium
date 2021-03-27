@@ -1,4 +1,3 @@
- ~/.profile
 getlist_device_id() {
   output=$(adb devices | grep emulator | cut -f1)
   arr=$(echo $output | tr " " "\n")
@@ -53,16 +52,13 @@ disable_animation() {
     echo "certification installed"
   done
 }
-
 no_Emulator=$1
-if [[ -n "$1" ]]; then
+if [ -n "$1" ]; then
   no_Emulator=$1  
 else
   no_Emulator=1
 fi
-if [ -f ~/.bashrc ]; then
-   source ~/.bashrc
-fi
+echo "$no_Emulator"
 wait_emulator_to_be_ready
 sleep 1
 disable_animation
